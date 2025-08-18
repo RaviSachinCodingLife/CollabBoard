@@ -1,67 +1,127 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { useAppDispatch } from "../app/hooks"; // custom typed hooks
-import { setCredentials } from "../features/authSlice";
-import API from "../services/api";
+import React, { useState } from "react";
+import { Box, Button, Container, TextField, Typography, Paper, Alert } from "@mui/material";
+import { Link, useNavigate } from "react-router-dom";
+import api from "../services/api";
 
-interface LoginResponse {
-    user: {
-        id: string;
-        email: string;
-        name?: string;
-    };
-    token: string;
-}
-
-function Login() {
-    const [email, setEmail] = useState<string>("");
-    const [password, setPassword] = useState<string>("");
-
-    const dispatch = useAppDispatch();
+export default function Login() {
     const navigate = useNavigate();
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [err, setErr] = useState("");
 
-    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
-            const res = await API.post<LoginResponse>("/api/auth/login", {
-                email,
-                password,
-            });
+            const res = await api.post("/auth/login", { email, password });
             localStorage.setItem("token", res.data.token);
-            dispatch(setCredentials(res.data));
+            localStorage.setItem("user", JSON.stringify(res.data.user));
             navigate("/dashboard");
-        } catch (err) {
-            console.error(err);
-            alert("Login failed");
+        } catch (err: any) {
+            setErr(err.response?.data?.msg || "Login failed");
         }
     };
 
+
     return (
-        <form onSubmit={handleSubmit} style={{ padding: "20px" }}>
-            <h2>Login</h2>
-            <input
-                type="email"
-                placeholder="Email"
-                value={email}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                    setEmail(e.target.value)
-                }
-            />
-            <br />
-            <br />
-            <input
-                type="password"
-                placeholder="Password"
-                value={password}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                    setPassword(e.target.value)
-                }
-            />
-            <br />
-            <br />
-            <button type="submit">Login</button>
-        </form>
+        <Box
+            sx={{
+                height: "100vh",
+                background: "linear-gradient(135deg, #13a898 0%, #4f46e5 100%)",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                p: 2,
+            }}
+        >
+            <Container maxWidth="sm">
+                <Paper
+                    elevation={10}
+                    sx={{
+                        p: 5,
+                        borderRadius: 4,
+                        textAlign: "center",
+                        background: "#fff",
+                    }}
+                >
+                    <Typography
+                        variant="h3"
+                        sx={{
+                            fontWeight: "bold",
+                            mb: 1,
+                            background: "linear-gradient(90deg,#13a898,#4f46e5)",
+                            WebkitBackgroundClip: "text",
+                            WebkitTextFillColor: "transparent",
+                        }}
+                    >
+                        CollabBoard
+                    </Typography>
+                    <Typography variant="subtitle1" sx={{ mb: 3, color: "#666" }}>
+                        Welcome back Login to continue
+                    </Typography>
+
+                    {err && (
+                        <Alert severity="error" sx={{ mb: 2 }}>
+                            {err}
+                        </Alert>
+                    )}
+
+                    <form onSubmit={handleLogin}>
+                        <TextField
+                            fullWidth
+                            label="Email"
+                            variant="outlined"
+                            margin="normal"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            sx={{ "& .MuiOutlinedInput-root": { borderRadius: 3 } }}
+                        />
+                        <TextField
+                            fullWidth
+                            label="Password"
+                            type="password"
+                            variant="outlined"
+                            margin="normal"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            sx={{ "& .MuiOutlinedInput-root": { borderRadius: 3 } }}
+                        />
+
+                        <Button
+                            type="submit"
+                            fullWidth
+                            variant="contained"
+                            sx={{
+                                mt: 3,
+                                py: 1.5,
+                                fontSize: "1rem",
+                                fontWeight: "bold",
+                                textTransform: "none",
+                                borderRadius: 3,
+                                background: "linear-gradient(90deg, #13a898, #4f46e5)",
+                                "&:hover": {
+                                    background: "linear-gradient(90deg, #119987, #4036d6)",
+                                },
+                            }}
+                        >
+                            Login
+                        </Button>
+                    </form>
+
+                    <Typography variant="body2" sx={{ mt: 3, color: "#555" }}>
+                        Don’t have an account?{" "}
+                        <Link
+                            to="/register"
+                            style={{
+                                color: "#4f46e5",
+                                fontWeight: "bold",
+                                textDecoration: "none",
+                            }}
+                        >
+                            Register
+                        </Link>
+                    </Typography>
+                </Paper>
+            </Container>
+        </Box>
     );
 }
-
-export default Login;

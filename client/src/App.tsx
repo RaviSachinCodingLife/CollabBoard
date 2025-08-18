@@ -1,17 +1,30 @@
 import { Routes, Route, Navigate } from "react-router-dom";
-import Dashboard from "./pages/Dashboard";
-import Board from "./pages/Board";
-import Login from "./pages/Login";
+import { routes } from "./router/routes";
 
-function App() {
+const App = () => {
+  const token = localStorage.getItem("token");
+
   return (
     <Routes>
-      <Route path="/" element={<Navigate to="/dashboard" />} />
-      <Route path="/dashboard" element={<Dashboard />} />
-      <Route path="/board/:id" element={<Board />} />
-      <Route path="/login" element={<Login />} />
+      <Route
+        path="/"
+        element={<Navigate to={token ? "/dashboard" : "/login"} replace />}
+      />
+
+      {routes.map((route) => (
+        <Route key={route.path} path={route.path} element={route.element} />
+      ))}
+
+      <Route
+        path="*"
+        element={
+          <h1 style={{ textAlign: "center", marginTop: "50px" }}>
+            404 - Page Not Found
+          </h1>
+        }
+      />
     </Routes>
   );
-}
+};
 
 export default App;
