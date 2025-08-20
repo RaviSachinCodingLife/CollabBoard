@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import {
     AppBar,
     Toolbar,
@@ -25,7 +25,7 @@ import {
 import HomePage from "./Home";
 import Documents from "./Documents";
 
-type User = {
+export type User = {
     _id: string;
     fullName: string;
     username: string;
@@ -42,7 +42,7 @@ export default function Dashboard() {
     const [user, setUser] = useState<User | null>(null);
     const [activePage, setActivePage] = useState<"home" | "documents">("home");
 
-
+    const location = useLocation();
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -71,6 +71,12 @@ export default function Dashboard() {
                 .join("")
                 .toUpperCase()
             : "U";
+
+    useEffect(() => {
+        if (location.state?.activePage) {
+            setActivePage(location.state.activePage);
+        }
+    }, [location.state]);
 
     return (
         <Box sx={{ display: "flex", minHeight: "100vh", bgcolor: "#f5f7fb" }}>
