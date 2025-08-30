@@ -1,0 +1,16 @@
+{
+  "version": 3,
+  "projects": [
+    {
+      "name": "collabboard-client",
+      "rootDirectory": "client",
+      "buildCommand": "npm run build",
+      "outputDirectory": "dist",
+      "env": {
+        "VITE_API_URL": "https://collabboard-production-c938.up.railway.app",
+        "VITE_SOCKET_URL": "https://collabboard-production-c938.up.railway.app",
+        "VITE_CLOUDFRONT_URL": "https://d3jwlm0ggqs7st.cloudfront.net"
+      }
+    }
+  ]
+}
