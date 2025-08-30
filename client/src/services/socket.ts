@@ -5,4 +5,5 @@ const socket = io(import.meta.env.VITE_SOCKET_URL, {
   withCredentials: true,
   auth: { token },
 });
+
 export default socket;

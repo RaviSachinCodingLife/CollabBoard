@@ -8,10 +8,10 @@ const httpServer = http.createServer(app);
 const io = new IOServer(httpServer, {
   cors: {
     origin: process.env.CORS_ORIGIN || "http://localhost:5173",
+    methods: ["GET", "POST"],
     credentials: true,
   },
 });
-
 
 io.on("connection", (socket) => {
   console.log("socket connected", socket.id);
