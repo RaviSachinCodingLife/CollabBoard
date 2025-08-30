@@ -29,7 +29,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/boards", boardsRoutes);
 
 app.get("/", (req, res) => {
-  res.send("🚀 ShopSphere GraphQL API is running! Use /graphql");
+  res.send("🚀 CollabBoard is running on 4000");
 });
 
 const MONGO =
