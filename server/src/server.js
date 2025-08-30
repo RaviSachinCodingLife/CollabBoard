@@ -5,9 +5,17 @@ import { Server as IOServer } from "socket.io";
 const PORT = process.env.PORT || 4000;
 const httpServer = http.createServer(app);
 
+// const io = new IOServer(httpServer, {
+//   cors: {
+//     origin: process.env.CORS_ORIGIN || "http://localhost:5173",
+//     methods: ["GET", "POST"],
+//     credentials: true,
+//   },
+// });
+
 const io = new IOServer(httpServer, {
   cors: {
-    origin: process.env.CORS_ORIGIN || "http://localhost:5173",
+    origin: process.env.CORS_ORIGIN?.split(",") || ["http://localhost:5173"],
     methods: ["GET", "POST"],
     credentials: true,
   },
@@ -37,4 +45,7 @@ io.on("connection", (socket) => {
 
 httpServer.listen(PORT, () => {
   console.log(`✅ Server listening on http://localhost:${PORT}`);
+  console.log(
+    `✅ Public URL: ${process.env.PUBLIC_URL || "check Railway dashboard"}`
+  );
 });

@@ -15,12 +15,19 @@ const __dirname = path.dirname(__filename);
 
 const app = express();
 
+// app.use(
+//   cors({
+//     origin: process.env.CORS_ORIGIN || "http://localhost:5173",
+//     credentials: true,
+//   })
+// );
 app.use(
   cors({
-    origin: process.env.CORS_ORIGIN || "http://localhost:5173",
+    origin: process.env.CORS_ORIGIN?.split(",") || ["http://localhost:5173"],
     credentials: true,
   })
 );
+
 app.use(express.json());
 
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
@@ -35,8 +42,8 @@ app.get("/", (req, res) => {
 const MONGO =
   process.env.MONGO_URI ||
   "mongodb+srv://ravisachin957_db_user:Sachin%409570@cluster0.i7ptlxz.mongodb.net/collabboard";
-mongoose
-  .connect(MONGO, { useNewUrlParser: true, useUnifiedTopology: true })
+
+  mongoose.connect(MONGO)
   .then(() => console.log("✅ MongoDB connected"))
   .catch((err) => console.error("❌ MongoDB error:", err));
 
