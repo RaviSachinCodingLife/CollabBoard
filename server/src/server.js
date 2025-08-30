@@ -38,6 +38,6 @@ io.on("connection", (socket) => {
 httpServer.listen(PORT, () => {
   console.log(`✅ Server listening on http://localhost:${PORT}`);
   console.log(
-    `✅ Public URL: ${process.env.PUBLIC_URL || "check Railway dashboard"}`
+    `✅ Public URL: ${process.env.PORT || "check Railway dashboard"}`
   );
 });
