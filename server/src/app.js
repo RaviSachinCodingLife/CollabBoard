@@ -28,7 +28,9 @@ app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 app.use("/api/auth", authRoutes);
 app.use("/api/boards", boardsRoutes);
 
-const MONGO = process.env.MONGO_URI || "mongodb://127.0.0.1:27017/collabboard";
+const MONGO =
+  process.env.MONGO_URI ||
+  "mongodb+srv://ravisachin957_db_user:Sachin%409570@cluster0.i7ptlxz.mongodb.net/collabboard";
 mongoose
   .connect(MONGO, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log("✅ MongoDB connected"))

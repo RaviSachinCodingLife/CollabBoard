@@ -92,7 +92,7 @@ export default function Register() {
 
                     <form onSubmit={handleRegister}>
                         <Grid container spacing={3}>
-                            <Grid size={{ xs: 12, sm: 2, md: 6, xl: 6 }}>
+                            <Grid size={{ xs: 12, sm: 4, md: 6, xl: 6 }}>
                                 <TextField
                                     fullWidth
                                     label="Full Name"
@@ -106,7 +106,7 @@ export default function Register() {
                                     }}
                                 />
                             </Grid>
-                            <Grid size={{ xs: 12, sm: 2, md: 6, xl: 6 }}>
+                            <Grid size={{ xs: 12, sm: 4, md: 6, xl: 6 }}>
                                 <TextField
                                     fullWidth
                                     label="Username"
@@ -121,7 +121,7 @@ export default function Register() {
                                 />
                             </Grid>
 
-                            <Grid size={{ xs: 12, sm: 2, md: 6, xl: 6 }}>
+                            <Grid size={{ xs: 12, sm: 4, md: 6, xl: 6 }}>
                                 <TextField
                                     fullWidth
                                     label="Email"
@@ -132,7 +132,7 @@ export default function Register() {
                                     sx={{ "& .MuiOutlinedInput-root": { borderRadius: 3 } }}
                                 />
                             </Grid>
-                            <Grid size={{ xs: 12, sm: 2, md: 6, xl: 6 }}>
+                            <Grid size={{ xs: 12, sm: 4, md: 6, xl: 6 }}>
                                 <TextField
                                     fullWidth
                                     label="Phone Number"
@@ -143,7 +143,7 @@ export default function Register() {
                                 />
                             </Grid>
 
-                            <Grid size={{ xs: 12, sm: 2, md: 6, xl: 6 }}>
+                            <Grid size={{ xs: 12, sm: 4, md: 6, xl: 6 }}>
                                 <TextField
                                     fullWidth
                                     label="Password"
@@ -154,7 +154,7 @@ export default function Register() {
                                     sx={{ "& .MuiOutlinedInput-root": { borderRadius: 3 } }}
                                 />
                             </Grid>
-                            <Grid size={{ xs: 12, sm: 2, md: 6, xl: 6 }}>
+                            <Grid size={{ xs: 12, sm: 4, md: 6, xl: 6 }}>
                                 <TextField
                                     fullWidth
                                     label="Confirm Password"
@@ -166,7 +166,7 @@ export default function Register() {
                                 />
                             </Grid>
 
-                            <Grid size={{ xs: 12, sm: 2, md: 6, xl: 6 }} container >
+                            <Grid size={{ xs: 12, sm: 4, md: 6, xl: 6 }} container >
                                 <Button
                                     type="submit"
                                     variant="contained"
