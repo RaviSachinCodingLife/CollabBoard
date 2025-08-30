@@ -33,6 +33,7 @@ import type { Board } from "./Documents";
 
 const socket = io();
 
+console.log({ socket });
 
 const MAX_ZOOM = 4;
 const MIN_ZOOM = 0.25;
